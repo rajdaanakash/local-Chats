@@ -25,6 +25,14 @@ io.on('connection', (socket) => {
         io.emit('message', entry);
     });
 });
+socket.on('chatMessage', async (msg) => {
+    // If username is missing, call them "ANONYMOUS" or "GHOST"
+    const sender = socket.username || "ANONYMOUS_USER"; 
+    
+    const entry = { user: sender, text: msg };
+    logHistory.push(entry); 
+    io.emit('message', entry);
+});
 
 // Use Render's assigned port, or default to 3000 for your Lenovo LOQ
 const PORT = process.env.PORT || 3000;

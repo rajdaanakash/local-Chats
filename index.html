@@ -31,8 +31,12 @@
 
         function handleLogin(e) {
             if (e.key === 'Enter') {
-                myUsername = document.getElementById('username-input').value;
-                if(myUsername) {
+                const inputName = document.getElementById('username-input').value.trim();
+                if(inputName) {
+                    myUsername = inputName;
+                    // This saves the name even if the page glitches
+                    sessionStorage.setItem('mission_username', myUsername); 
+
                     document.getElementById('login-screen').style.display = 'none';
                     document.getElementById('main-chat').style.display = 'block';
                     socket.emit('join', myUsername);
